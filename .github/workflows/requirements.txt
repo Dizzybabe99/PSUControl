@@ -1,0 +1,7 @@
+pathlib
+tkinter
+pygubu
+serial.tools.list_ports
+serial
+os
+re
