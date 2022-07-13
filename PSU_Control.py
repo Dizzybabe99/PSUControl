@@ -2,7 +2,7 @@
 """PSU_Control.py: Controls a RS232 SERIAL INTERFACE from Delta Elektonika, providing a gui."""
 
 __author__      = "Owen Dennis McGinnis"
-__version__     = "0.2.2 A"
+__version__     = "1.0"
 # Version A: Frontpanel locking disabled
 __email__       = "mcginnis@atom.uni-frankfurt.de"
 
