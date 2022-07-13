@@ -1,0 +1,1 @@
+pyinstaller .\PSU_Control.py --add-data ".\PSU_Control.ui;." --add-data ".\Icon.png;." --add-data ".\PSU_Control_manual.pdf;." --icon=Icon.ico --onefile --clean

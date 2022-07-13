@@ -1,0 +1,673 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="mainwindow">
+    <property name="background">#c0c0c0</property>
+    <property name="container">false</property>
+    <property name="height">400</property>
+    <property name="resizable">none</property>
+    <property name="title" translatable="yes">PSU Control</property>
+    <property name="width">400</property>
+    <child>
+      <object class="ttk.Labelframe" id="labelframe1">
+        <property name="height">200</property>
+        <property name="text" translatable="yes">Port Selection</property>
+        <property name="width">200</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">0</property>
+        </layout>
+        <containerlayout manager="grid">
+          <property type="col" id="0" name="pad">20</property>
+          <property type="col" id="1" name="pad">10</property>
+          <property type="col" id="2" name="pad">10</property>
+          <property type="row" id="0" name="pad">10</property>
+        </containerlayout>
+        <child>
+          <object class="ttk.Combobox" id="portList">
+            <property name="exportselection">true</property>
+            <property name="justify">left</property>
+            <property name="postcommand" type="command" cbtype="simple">updatePorts</property>
+            <property name="state">readonly</property>
+            <property name="takefocus">true</property>
+            <property name="width">50</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="selectPortButton">
+            <property name="command" type="command" cbtype="simple">getSelectedPort</property>
+            <property name="takefocus">true</property>
+            <property name="text" translatable="yes">select Port</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="button2">
+            <property name="command" type="command" cbtype="with_wid">lock</property>
+            <property name="takefocus">true</property>
+            <property name="text" translatable="yes">Lock</property>
+            <layout manager="grid">
+              <property name="column">2</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="frame3">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">2</property>
+        </layout>
+        <containerlayout manager="grid">
+          <property type="row" id="0" name="pad">10</property>
+          <property type="row" id="1" name="pad">5</property>
+          <property type="row" id="2" name="pad">10</property>
+        </containerlayout>
+        <child>
+          <object class="ttk.Labelframe" id="labelframe2">
+            <property name="height">200</property>
+            <property name="text" translatable="yes">Status</property>
+            <property name="width">500</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">10</property>
+              <property name="row">0</property>
+              <property name="sticky">w</property>
+            </layout>
+            <containerlayout manager="grid">
+              <property type="col" id="0" name="pad">40</property>
+              <property type="row" id="0" name="pad">20</property>
+              <property type="row" id="1" name="pad">20</property>
+              <property type="row" id="2" name="pad">20</property>
+            </containerlayout>
+            <child>
+              <object class="ttk.Frame" id="frame1">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">1</property>
+                </layout>
+                <containerlayout manager="grid">
+                  <property type="row" id="0" name="pad">10</property>
+                </containerlayout>
+                <child>
+                  <object class="tk.Button" id="buttonPSUOn">
+                    <property name="activebackground">#00aa00</property>
+                    <property name="activeforeground">#000000</property>
+                    <property name="background">#00ff00</property>
+                    <property name="command" type="command" cbtype="simple">psuOn</property>
+                    <property name="disabledforeground">#000000</property>
+                    <property name="font">{Arial} 14 {}</property>
+                    <property name="foreground">#000000</property>
+                    <property name="takefocus">true</property>
+                    <property name="text" translatable="yes">ON</property>
+                    <property name="width">5</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Button" id="buttonPSUOff">
+                    <property name="activebackground">#aa0000</property>
+                    <property name="activeforeground">#ffffff</property>
+                    <property name="background">#ff0000</property>
+                    <property name="command" type="command" cbtype="simple">psuOff</property>
+                    <property name="disabledforeground">#ffffff</property>
+                    <property name="font">{Arial} 14 {}</property>
+                    <property name="foreground">#ffffff</property>
+                    <property name="takefocus">true</property>
+                    <property name="text" translatable="yes">OFF</property>
+                    <property name="width">5</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Frame" id="frame4">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                </layout>
+                <child>
+                  <object class="tk.Button" id="buttonRemote">
+                    <property name="activebackground">#00aa00</property>
+                    <property name="activeforeground">#000000</property>
+                    <property name="background">#00ff00</property>
+                    <property name="command" type="command" cbtype="simple">psuRemoteDialog</property>
+                    <property name="disabledforeground">#000000</property>
+                    <property name="font">{Arial} 12 {}</property>
+                    <property name="foreground">#000000</property>
+                    <property name="takefocus">true</property>
+                    <property name="text" translatable="yes">Remote</property>
+                    <property name="width">6</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Button" id="buttonLocal">
+                    <property name="activebackground">#aaaa00</property>
+                    <property name="activeforeground">#000000</property>
+                    <property name="background">#ffff00</property>
+                    <property name="command" type="command" cbtype="simple">psuLocalDialog</property>
+                    <property name="disabledforeground">#000000</property>
+                    <property name="font">{Arial} 12 {}</property>
+                    <property name="foreground">#000000</property>
+                    <property name="takefocus">true</property>
+                    <property name="text" translatable="yes">Local</property>
+                    <property name="width">6</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Frame" id="frame2">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">2</property>
+                </layout>
+                <child>
+                  <object class="tk.Button" id="fpLocked">
+                    <property name="activebackground">#00aaaa</property>
+                    <property name="activeforeground">#000000</property>
+                    <property name="background">#00ffff</property>
+                    <property name="command" type="command" cbtype="simple">frontpanelLock</property>
+                    <property name="disabledforeground">#000000</property>
+                    <property name="font">{Arial} 8 {}</property>
+                    <property name="foreground">#000000</property>
+                    <property name="justify">center</property>
+                    <property name="takefocus">true</property>
+                    <property name="text" translatable="yes">Front panel
+Locked</property>
+                    <property name="width">9</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Button" id="fpUnlocked">
+                    <property name="activebackground">#aaaa00</property>
+                    <property name="activeforeground">#000000</property>
+                    <property name="background">#ffff00</property>
+                    <property name="command" type="command" cbtype="simple">frontpanelUnlock</property>
+                    <property name="disabledforeground">#000000</property>
+                    <property name="font">{Arial} 8 {}</property>
+                    <property name="foreground">#000000</property>
+                    <property name="justify">center</property>
+                    <property name="takefocus">true</property>
+                    <property name="text" translatable="yes">Front panel
+Unlocked</property>
+                    <property name="width">9</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Labelframe" id="labelframe4">
+            <property name="height">200</property>
+            <property name="text" translatable="yes">Voltage / Current control</property>
+            <property name="width">200</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="padx">10</property>
+              <property name="pady">10</property>
+              <property name="row">0</property>
+              <property name="rowspan">2</property>
+              <property name="sticky">e</property>
+            </layout>
+            <containerlayout manager="grid">
+              <property type="col" id="0" name="pad">10</property>
+              <property type="row" id="0" name="pad">10</property>
+              <property type="row" id="2" name="pad">10</property>
+            </containerlayout>
+            <child>
+              <object class="ttk.Frame" id="frame6">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                </layout>
+                <containerlayout manager="grid">
+                  <property type="col" id="0" name="pad">10</property>
+                  <property type="col" id="1" name="pad">10</property>
+                  <property type="row" id="0" name="pad">10</property>
+                  <property type="row" id="2" name="pad">15</property>
+                </containerlayout>
+                <child>
+                  <object class="ttk.Entry" id="entry1">
+                    <property name="takefocus">true</property>
+                    <property name="textvariable">double:userSetVoltage</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">1</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="label10">
+                    <property name="text" translatable="yes"> Voltage / V</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">0</property>
+                      <property name="sticky">sw</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Entry" id="entry2">
+                    <property name="takefocus">true</property>
+                    <property name="textvariable">double:userSetCurrent</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="row">1</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="label11">
+                    <property name="text" translatable="yes"> Current / A</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="row">0</property>
+                      <property name="sticky">sw</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Button" id="button3">
+                    <property name="command" type="command" cbtype="simple">setUserVoltage</property>
+                    <property name="takefocus">true</property>
+                    <property name="text" translatable="yes">Set Voltage</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">2</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Button" id="button4">
+                    <property name="command" type="command" cbtype="simple">setUserCurrent</property>
+                    <property name="takefocus">true</property>
+                    <property name="text" translatable="yes">Set Current</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="row">2</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Button" id="button6">
+                <property name="command" type="command" cbtype="simple">remeasure</property>
+                <property name="takefocus">true</property>
+                <property name="text" translatable="yes">Update Measured Voltage / Current</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Frame" id="frame10">
+                <property name="height">200</property>
+                <property name="width">500</property>
+                <layout manager="grid">
+                  <property name="column">0</property>
+                  <property name="row">1</property>
+                  <property name="sticky">s</property>
+                </layout>
+                <containerlayout manager="grid">
+                  <property type="col" id="0" name="pad">10</property>
+                  <property type="col" id="1" name="pad">10</property>
+                </containerlayout>
+                <child>
+                  <object class="tk.Message" id="messageVSetz">
+                    <property name="background">#ffffff</property>
+                    <property name="font">TkFixedFont</property>
+                    <property name="justify">center</property>
+                    <property name="text" translatable="yes">000.00 V</property>
+                    <property name="width">100</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">1</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Message" id="messageASetz">
+                    <property name="background">#ffffff</property>
+                    <property name="font">TkFixedFont</property>
+                    <property name="text" translatable="yes">000.00 A</property>
+                    <property name="width">100</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="row">1</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="label4">
+                    <property name="text" translatable="yes"> Set</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">0</property>
+                      <property name="sticky">sw</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="label5">
+                    <property name="text" translatable="yes"> Measured</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">4</property>
+                      <property name="sticky">sw</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Message" id="messageVMea">
+                    <property name="background">#c0c0c0</property>
+                    <property name="font">TkFixedFont</property>
+                    <property name="justify">center</property>
+                    <property name="text" translatable="yes">000.00 V</property>
+                    <property name="width">100</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">5</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Message" id="messageAMea">
+                    <property name="background">#c0c0c0</property>
+                    <property name="font">TkFixedFont</property>
+                    <property name="text" translatable="yes">000.00 A</property>
+                    <property name="width">100</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="row">5</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Label" id="label7">
+                    <property name="text" translatable="yes"> Set (PSU)</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">2</property>
+                      <property name="sticky">sw</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Message" id="messageVPSU">
+                    <property name="background">#e9e9e9</property>
+                    <property name="font">TkFixedFont</property>
+                    <property name="justify">center</property>
+                    <property name="text" translatable="yes">000.00 V</property>
+                    <property name="width">100</property>
+                    <layout manager="grid">
+                      <property name="column">0</property>
+                      <property name="row">3</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="tk.Message" id="messageAPSU">
+                    <property name="background">#e9e9e9</property>
+                    <property name="font">TkFixedFont</property>
+                    <property name="text" translatable="yes">000.00 A</property>
+                    <property name="width">100</property>
+                    <layout manager="grid">
+                      <property name="column">1</property>
+                      <property name="row">3</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frame8">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">1</property>
+            </layout>
+            <child>
+              <object class="ttk.Button" id="button5">
+                <property name="command" type="command" cbtype="simple">openDocu</property>
+                <property name="takefocus">true</property>
+                <property name="text" translatable="yes">Open Documentation</property>
+                <layout manager="pack">
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="frame7">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">3</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="errorMessageLabel">
+            <property name="background">#bebebe</property>
+            <property name="foreground">#ff0000</property>
+            <property name="textvariable">string:errorMsg</property>
+            <property name="wraplength">500</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="frame11">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">1</property>
+        </layout>
+        <child>
+          <object class="ttk.Spinbox" id="spinbox1">
+            <property name="from_">1</property>
+            <property name="increment">1</property>
+            <property name="text" translatable="yes">1</property>
+            <property name="textvariable">int:selectedChannel</property>
+            <property name="to">30</property>
+            <property name="width">4</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="padx">8</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="label1">
+            <property name="text" translatable="yes">Select Channel</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="padx">8</property>
+              <property name="pady">10</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="button1">
+            <property name="command" type="command" cbtype="simple">confirmChannel</property>
+            <property name="text" translatable="yes">Confirm</property>
+            <layout manager="grid">
+              <property name="column">2</property>
+              <property name="padx">8</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Message" id="message1">
+            <property name="text" translatable="yes">Selected Channel: 1 </property>
+            <property name="textvariable">string:selectedChannelTxt</property>
+            <property name="width">120</property>
+            <layout manager="grid">
+              <property name="column">3</property>
+              <property name="padx">2</property>
+              <property name="pady">10</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Message" id="message3">
+            <property name="background">#ff0000</property>
+            <property name="font">TkFixedFont</property>
+            <property name="foreground">#ffffff</property>
+            <property name="justify">center</property>
+            <property name="text" translatable="yes">Not connected</property>
+            <property name="width">120</property>
+            <layout manager="grid">
+              <property name="column">4</property>
+              <property name="padx">4</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="tk.Toplevel" id="dialogLocal">
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <child>
+      <object class="tk.Message" id="message9">
+        <property name="font">TkDefaultFont</property>
+        <property name="text" translatable="yes">Are you shure you want to switch to the local settings?
+
+WARNING: The power supply will return to the potentiometers settings on the front panel!</property>
+        <property name="width">350</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="columnspan">2</property>
+          <property name="padx">10</property>
+          <property name="pady">10</property>
+          <property name="row">0</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="buttonLocalConfirm">
+        <property name="command" type="command" cbtype="simple">psuLocal</property>
+        <property name="takefocus">true</property>
+        <property name="text" translatable="yes">Confirm</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">1</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="button12">
+        <property name="command" type="command" cbtype="simple">psuLocalDialogClose</property>
+        <property name="takefocus">true</property>
+        <property name="text" translatable="yes">Abort</property>
+        <layout manager="grid">
+          <property name="column">1</property>
+          <property name="row">1</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+  <object class="tk.Toplevel" id="dialogRemote">
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <child>
+      <object class="tk.Message" id="message10">
+        <property name="font">TkDefaultFont</property>
+        <property name="justify">left</property>
+        <property name="text" translatable="yes">Are you shure you want to switch to the remote settings?
+
+WARNING: The power supply will return to the set Voltage and Current!</property>
+        <property name="width">350</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="columnspan">2</property>
+          <property name="ipadx">10</property>
+          <property name="ipady">10</property>
+          <property name="row">0</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="button13">
+        <property name="command" type="command" cbtype="simple">psuRemote</property>
+        <property name="takefocus">true</property>
+        <property name="text" translatable="yes">Confirm</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">1</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="button14">
+        <property name="command" type="command" cbtype="simple">psuRemoteDialogClose</property>
+        <property name="takefocus">true</property>
+        <property name="text" translatable="yes">Abort</property>
+        <layout manager="grid">
+          <property name="column">1</property>
+          <property name="row">1</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+</interface>
