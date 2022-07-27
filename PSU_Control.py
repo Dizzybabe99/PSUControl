@@ -399,7 +399,7 @@ class PsuControlApp:
                 self.updateListings()
                 self.mainwindow.after(120000, self.updateCom, True)
             except printableError as err:
-                self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
+                self.errorMsg.set(str(err)+"\nRunning in Serial mode!\nInput for current equals total current!")
             else:
                 self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
         return self
@@ -426,9 +426,9 @@ class PsuControlApp:
                     .updateSetVoltage()
             self.updateListings()
         except tk.TclError:
-            self.errorMsg.set("Input for Voltage must be a floating point number or integer!")
+            self.errorMsg.set("Input for Voltage must be a floating point number or integer!"+"\nRunning in Serial mode!\nInput for current equals total current!")
         except printableError as err:
-            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
+            self.errorMsg.set(str(err)+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
             self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
 
@@ -440,9 +440,9 @@ class PsuControlApp:
                     .updateSetCurrent()
             self.updateListings()
         except tk.TclError:
-            self.errorMsg.set("Input for Current must be a floating point number or integer!")
+            self.errorMsg.set("Input for Current must be a floating point number or integer!"+"\nRunning in Serial mode!\nInput for current equals total current!")
         except printableError as err:
-            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
+            self.errorMsg.set(str(err)+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
             self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
     
@@ -452,7 +452,7 @@ class PsuControlApp:
             self.mainwindow.update()
             self.com.fullUpdate()
         except printableError as err:
-            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
+            self.errorMsg.set(str(err)+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
             self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
     
@@ -489,7 +489,7 @@ class PsuControlApp:
         try:
             self.com.psuOn()
         except printableError as err:
-            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
+            self.errorMsg.set(str(err)+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
             self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
 
@@ -498,7 +498,7 @@ class PsuControlApp:
         try:
             self.com.psuOff()
         except printableError as err:
-            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
+            self.errorMsg.set(str(err)+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
             self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
     
@@ -544,7 +544,7 @@ class PsuControlApp:
         try:
             self.com.psuLocal()
         except printableError as err:
-            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
+            self.errorMsg.set(str(err)+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
             self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
 
@@ -564,7 +564,7 @@ class PsuControlApp:
         try:
             self.com.psuRemote()
         except printableError as err:
-            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
+            self.errorMsg.set(str(err)+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
             self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
 
@@ -603,7 +603,7 @@ class PsuControlApp:
         try:
             self.com.fpLock()
         except printableError as err:
-            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
+            self.errorMsg.set(str(err)+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
             self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
     
@@ -611,7 +611,7 @@ class PsuControlApp:
         try:
             self.com.fpUnlock()
         except printableError as err:
-            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
+            self.errorMsg.set(str(err)+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
             self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
         
@@ -678,7 +678,7 @@ class PsuControlApp:
             else:
                 self.updateCom()
         except printableError as err:
-            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
+            self.errorMsg.set(str(err)+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
             self.selectedChannelTxt.set("Selected Channel: {}".format(port))
             self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
