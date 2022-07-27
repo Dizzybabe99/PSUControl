@@ -300,6 +300,9 @@ class PsuControlApp:
         self.selectedPort = 1
         self.coms= [PsuControlCom(i) for i in range(1,16)]
         self.com = self.coms[0]
+        
+        self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
+        print("Running in Serial mode!\nInput for current equals total current!")
     
     def initDialogLocal(self, master):
         # build ui
@@ -396,9 +399,9 @@ class PsuControlApp:
                 self.updateListings()
                 self.mainwindow.after(120000, self.updateCom, True)
             except printableError as err:
-                self.errorMsg.set(err)
+                self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
             else:
-                self.errorMsg.set("")
+                self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
         return self
     
     def lock(self, oID):
@@ -425,9 +428,9 @@ class PsuControlApp:
         except tk.TclError:
             self.errorMsg.set("Input for Voltage must be a floating point number or integer!")
         except printableError as err:
-            self.errorMsg.set(err)
+            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
-            self.errorMsg.set("")
+            self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
 
     def setUserCurrent(self):
         try:
@@ -439,9 +442,9 @@ class PsuControlApp:
         except tk.TclError:
             self.errorMsg.set("Input for Current must be a floating point number or integer!")
         except printableError as err:
-            self.errorMsg.set(err)
+            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
-            self.errorMsg.set("")
+            self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
     
     def remeasure(self):
         try:
@@ -449,9 +452,9 @@ class PsuControlApp:
             self.mainwindow.update()
             self.com.fullUpdate()
         except printableError as err:
-            self.errorMsg.set(err)
+            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
-            self.errorMsg.set("")
+            self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
     
     def updateStatusPowerDisplay(self, status=-1):
         onIndicator = self.builder.get_object("buttonPSUOn")
@@ -486,18 +489,18 @@ class PsuControlApp:
         try:
             self.com.psuOn()
         except printableError as err:
-            self.errorMsg.set(err)
+            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
-            self.errorMsg.set("")
+            self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
 
     def psuOff(self):
         print("Turn PSU Off")
         try:
             self.com.psuOff()
         except printableError as err:
-            self.errorMsg.set(err)
+            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
-            self.errorMsg.set("")
+            self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
     
     def updateStatusRemoteDisplay(self, status=-1):
         onIndicator = self.builder.get_object("buttonRemote")
@@ -541,9 +544,9 @@ class PsuControlApp:
         try:
             self.com.psuLocal()
         except printableError as err:
-            self.errorMsg.set(err)
+            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
-            self.errorMsg.set("")
+            self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
 
     def psuLocalDialogClose(self):
         self.dialogLocal.withdraw()
@@ -561,9 +564,9 @@ class PsuControlApp:
         try:
             self.com.psuRemote()
         except printableError as err:
-            self.errorMsg.set(err)
+            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
-            self.errorMsg.set("")
+            self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
 
     def psuRemoteDialogClose(self):
         self.dialogRemote.withdraw()
@@ -600,17 +603,17 @@ class PsuControlApp:
         try:
             self.com.fpLock()
         except printableError as err:
-            self.errorMsg.set(err)
+            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
-            self.errorMsg.set("")
+            self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
     
     def frontpanelUnlock(self):
         try:
             self.com.fpUnlock()
         except printableError as err:
-            self.errorMsg.set(err)
+            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
-            self.errorMsg.set("")
+            self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
         
     
     def updateListings(self, loop=False):
@@ -675,10 +678,10 @@ class PsuControlApp:
             else:
                 self.updateCom()
         except printableError as err:
-            self.errorMsg.set(err)
+            self.errorMsg.set(err+"\nRunning in Serial mode!\nInput for current equals total current!")
         else:
             self.selectedChannelTxt.set("Selected Channel: {}".format(port))
-            self.errorMsg.set("")
+            self.errorMsg.set("Running in Serial mode!\nInput for current equals total current!")
         return self
 
 def formatNum(number, unit):
