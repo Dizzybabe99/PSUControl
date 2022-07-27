@@ -25,7 +25,7 @@ PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "PSU_Control.ui"
 ICON_PATH  = PROJECT_PATH / "Icon.png"
 DOCUMENTAION_PATH  = PROJECT_PATH / "PSU_Control_manual.pdf"
-DEVICE_COM_NAME = "USB Serial Port"  # Name for testing arduino
+DEVICE_COM_NAME = "USB Serial Port"
 DEVICE_COM_REGEX = "{} [(].*[)]".format(DEVICE_COM_NAME)
 
 
@@ -187,7 +187,7 @@ class PsuControlCom:
     
     def updateMaxValues(self):
         self.voltageMax = float(self.write("SOur:VOlt:MAx?").read())
-        self.currentMax = float(self.write("SOur:CUrr:MAx?").read())
+        self.currentMax = float(self.write("SOur:CUrr:MAx?").read())*2
         return self
     
     def updateSetCurrent(self):
@@ -195,7 +195,7 @@ class PsuControlCom:
         return self
     
     def updateSetVoltage(self):
-        self.voltageSet = float(self.write("SOurce:VOltage?").read())
+        self.voltageSet = float(self.write("SOurce:VOltage?").read())*2
         return self
     
     def updateMeasuredCurrent(self):
@@ -217,7 +217,7 @@ class PsuControlCom:
         return self
     
     def setCurrent(self):
-        self.write("SOurce:CUrrent {}".format(self.currentRequested))
+        self.write("SOurce:CUrrent {}".format(self.currentRequested/2.))
         return self
     
     def voltageRequestedSet(self, val):
