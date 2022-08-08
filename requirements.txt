@@ -1,0 +1,4 @@
+pathlib
+tk
+pygubu
+pySerial
