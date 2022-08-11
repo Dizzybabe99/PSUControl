@@ -635,7 +635,7 @@ class PsuControlApp:
         self.mainwindow.update()
         try:
             if self.com.is_connected():
-                self.com.saveUpdate()
+                self.com.fullUpdate()
                 if loop:
                     self.mainwindow.after(120000, self.updateCom, True)
         except ValueError as err:
