@@ -2,7 +2,7 @@
 """PSU_Control.py: Controls a RS232 SERIAL INTERFACE from Delta Elektonika, providing a gui."""
 
 __author__      = "Owen Dennis McGinnis"
-__version__     = "1.0"
+__version__     = "0.2.3 A"
 # Version A: Frontpanel locking disabled
 __email__       = "mcginnis@atom.uni-frankfurt.de"
 
@@ -18,7 +18,7 @@ import re
 # Open a file in default viewer
 # os.startfile(PROJECT_PATH / "bachelor_McGinnis.pdf")
 # Remember to add file to exe compilation
-from pygubu.builder import tkstdwidgets, ttkstdwidgets
+#from pygubu.builder import tkstdwidgets, ttkstdwidgets
 from time import sleep
 
 PROJECT_PATH = pathlib.Path(__file__).parent
@@ -200,14 +200,14 @@ class PsuControlCom:
     
     def updateMeasuredCurrent(self):
         if self.status == 0:
-            self.currentMeasured = float(self.write("MEasure:CUrrent?").read(2))
+            self.currentMeasured = float(self.write("MEasure:CUrrent?").read(0.5))
         else:
             self.currentMeasured = -1
         return self
     
     def updateMeasuredVoltage(self):
         if self.status == 0:
-            self.voltageMeasured = float(self.write("MEasure:VOltage?").read(2))
+            self.voltageMeasured = float(self.write("MEasure:VOltage?").read(0.5))
         else:
             self.voltageMeasured = -1
         return self
@@ -635,7 +635,7 @@ class PsuControlApp:
         self.mainwindow.update()
         try:
             if self.com.is_connected():
-                self.com.fullUpdate()
+                self.com.saveUpdate()
                 if loop:
                     self.mainwindow.after(120000, self.updateCom, True)
         except ValueError as err:
@@ -695,6 +695,7 @@ def formatNum(number, unit):
         return "{: >6.2f}{}{}".format(number * mult, char, unit)
 
 if __name__ == '__main__':
+    print(f"This is PSU_Control Version {__version__}")
     app = PsuControlApp()
     app.preselectPort()
     app.updatePorts()
